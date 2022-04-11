@@ -1,0 +1,224 @@
+---
+fontsize: 10pt
+urlcolor: blue
+geometry: margin=0.5in
+header-includes: \renewcommand{\labelitemi}{} \usepackage[scaled]{helvet} \renewcommand\familydefault{\sfdefault} \usepackage[T1]{fontenc}
+output:
+  pdf_document:
+    highlight: tango
+    keep_tex: no
+    number_sections: no
+    toc: no
+    toc_depth: 2
+params:
+  course_info: PSYC 3250 Psychological Measurement Section 01
+  instructor: David Stanley
+  chair: Ian Newby-Clark
+  student_name: John Doe
+  student_email: jdoe@uoguelph.ca
+  offense: unauthorizedcooperation
+  student_number: 0000000
+  due_date: 0000-01-01
+  submit_date: 0000-01-01
+  instructor_date: today
+  forward_date: today
+  prelim_grade: -99
+  assignment_weight: -99
+  assignment_name: Assignmentname
+  other_students: temp
+  other_assignments: temp
+  notes: temp
+---
+<!-- set code block background color -->
+\definecolor{shadecolor}{RGB}{227, 227, 247}
+
+```{r setup, include = FALSE}
+forward_date = params$forward_date
+instructor_date = params$instructor_date
+
+offense <- params$offense
+
+degree = "__________"
+major = "__________"
+semester_level = "__________"
+chair_date = "_____________"
+
+
+is_offense <- function(cur_offense) {
+  status = cur_offense %in% offense
+  if (status == TRUE) {
+    output = "$\\textbf{\\boxed{\\checkmark}}$"
+  } else {
+    output = "$\\square$"
+    output = sprintf("\\CheckBox[name = %s,width=4mm, height = 4mm, bordercolor={0 0 0}]{}", cur_offense)
+  }
+  return(output)
+}
+
+
+```
+
+```{r, echo = FALSE, eval = TRUE, out.width="100%"} 
+header_path <- system.file("image","header_image.png", package = "misconduct")
+knitr::include_graphics(header_path)
+```
+
+# A. Record Information
+
+\normalsize
+
+**Student Name:** `r params$student_name` \hspace{5mm} **ID:** `r params$student_number`  \hspace{5mm} **Degree Program:** `r degree`
+
+**Major:** `r major` \hspace{5mm} **Student email:** `r params$student_email` 
+
+**Course number, Section, Title:** `r params$course_info` 
+
+**Coordinator or Instructor's Name:** `r params$instructor` 
+
+
+# B. Details of alleged Offence
+
+\small
+
+
+For more information on offences, consult the Undergraduate Calendar, Section VIII, Academic Misconduct: http://www.uoguelph.ca/registrar/calendars/undergraduate/current/ Click on Section VIII. “Undergraduate Degree Regulations and Procedures.” Then click on the section “Academic Misconduct.” If the case involves a graduate student, consult the Graduate Calendar, Section II, Academic Misconduct: http://www.uoguelph.ca/registrar/ calendars/graduate/current/ Click on Section III. “General Regulations.” Then click on the section “Academic Misconduct.”
+
+Please select as many options that may apply. If you are unsure of the exact offence, indicate “Uncertain.”
+
+\large
+
+1. **Misappropriation of Other's Work:**
+
+- `r is_offense("plagiarism")` **Plagiarism**
+  - \small Misrepresenting someone else’s ideas or work as their own \large
+
+- `r is_offense("copying")` **Copying**
+  - \small Copying in whole or in part exam answers, lab reports etc. \large
+
+- `r is_offense("unauthorizedcooperation")` **Unauthorized cooperation or collaboration**
+  - \small Collaboration on any assignment which has been explicitly designated as an individual effort \large
+
+
+2. **Misrepresentation and Fraud**
+
+- `r is_offense("impersonation")` **Impersonation**
+    - \small Impersonating or allowing someone to impersonate, in person or electronically, in any type of academic requirement \large
+- `r is_offense("falsification")` **Falsification**
+    - \small Providing a false or fraudulent document or testament for any academic purpose. Includes misrepresenting how much work an individual has contributed to a group assignment\large
+- `r is_offense("withholding")` **Withholding**
+    - \small Withholding records, transcripts and other academic records in order to gain unfair academic advantage \large
+- `r is_offense("unauthorizedaids")` **Unauthorized aids or assistance**
+    - \small Use or possession of any aid or assistance which is not specifically allowed by the Instructor or Invigilator \large
+
+
+\
+\
+
+3. **Improper Access and Obstruction**
+- `r is_offense("preventing access")` **Preventing access to materials**
+    - \small Hiding, destroying or otherwise restricting access to any material intended for general academic use \large
+- `r is_offense("obstruction")` **Obstruction and Interference**
+    - \small Obstructing or interfering with the scholarly activities of others specifically to gain unfair academic advantage \large
+- `r is_offense("improper access")` **Improper access**
+    - \small Unlawfully accessing any confidential document or material to gain an unfair academic advantage \large
+- `r is_offense("improper dissemination")` **Improper dissemination**
+    - \small Unlawfully making any confidential material available to a third party \large
+
+\vspace{2mm}
+
+4. **Aiding and Abetting**
+- `r is_offense("aiding and abetting")` **Aiding and abetting**
+    - \small Knowingly aiding or abetting anyone in committing any form of academic misconduct \large
+
+\vspace{2mm}
+
+
+5. **Uncertain**
+- `r is_offense("uncertain")`  \small Circumstances do not fit neatly into any one category \large
+
+## Assignment Details: `r params$assignment_name`
+
+**Assignment or Exam Worth What % of Final Grade:** `r params$assignment_weight`  
+
+**Preliminary Grade:** `r params$prelim_grade`
+
+**Assignment Due Date or Exam Date:** `r params$due_date` 
+ 
+**Date Assignment Submitted:** `r params$submit_date`
+
+## Grades in Other Assignments:
+
+```{r gradetable,echo=FALSE}
+knitr::kable(params$other_assignments)
+```
+
+
+## Names of other students, if any, associated with the students allegation:
+
+`r params$other_students`
+
+\pagebreak
+
+# C. Details of Notification/Interviewing of Student Regarding Allegation
+
+## Student Interviewed by:
+
+**Instructor:**  `r params$instructor`  \hspace{5mm}  Yes \LARGE  $\boxed{\checkmark}$ \large \CheckBox[name=iNo, width=12pt, bordercolor={0 0 0}]{No} \hspace{5mm} **Date:** `r sprintf("%s", instructor_date)`
+
+**Chair/Director:** `r params$chair`  \hspace{5mm}  \CheckBox[name=cYes, width=12pt, bordercolor={0 0 0}]{Yes} \hspace{2mm} \CheckBox[name=cNo, width=12pt, bordercolor={0 0 0}]{No} \hspace{5mm}    **Date:** \TextField[width=10em, bordercolor={0 0 0}]{}
+
+**Other:** \TextField[width=10em, bordercolor={0 0 0}]{} \hspace{5mm}  \CheckBox[name=oYes, width=12pt, bordercolor={0 0 0}]{Yes} \hspace{2mm} \CheckBox[name=oNo, width=12pt, bordercolor={0 0 0}]{No} \hspace{5mm}            **Date:** \TextField[width=10em, bordercolor={0 0 0}]{}
+
+**Date Forwarded to Chair/Director:** `r sprintf("%s", forward_date)`
+
+**Instructor and/or Source of Allegation:** Please provide details of the alleged misconduct and your evidence-gathering activities and relevant dates (attach additional pages and documentation as necessary):
+
+\vspace{5mm}
+
+`r params$notes` 
+
+\vspace{10mm}
+
+
+# D. Please attach to or otherwise indicate inclusion of the following documentation (as applicable) on this form:
+
+
+\CheckBox[name=optionA, width=12pt, bordercolor={0 0 0}]{} Course Outline
+
+\CheckBox[name=optionB, width=12pt, bordercolor={0 0 0}]{} Assignment or examination instructions (indicate value of assignment/exam)
+
+\CheckBox[name=optionC, width=12pt, bordercolor={0 0 0}]{} A preliminary grade for the assignment or test avoiding any reductions associated with possible misconduct
+
+\CheckBox[name=optionD, width=12pt, bordercolor={0 0 0}]{} A copy of the student's work with suspicious areas highlighted or otherwise clearly noted
+
+\CheckBox[name=optionE, width=12pt, bordercolor={0 0 0}]{} Information about the student's performance on other assignments in the course (see appropriate space given above)
+
+\CheckBox[name=optionF, width=12pt, bordercolor={0 0 0}]{} E-mail or other correspondence related to the case
+
+\CheckBox[name=optionG, width=12pt, bordercolor={0 0 0}]{} Names of witness(es) and/or witness statements, as appropriate
+
+\CheckBox[name=optionH, width=12pt, bordercolor={0 0 0}]{} Any additional information that may be relevant to the allegation (please list): 
+
+\TextField[width=17.2cm, height = 3cm, bordercolor={0 0 0}]{}
+
+
+\pagebreak
+
+# E. Signature
+
+\TextField[width=18em,  height = 12mm, bordercolor={0 0 0}]{\textbf{Instructor Signature:}} \hspace{5mm} **Date:** \TextField[width=10em, bordercolor={0 0 0}]{}
+
+# To be completed by Chair/Director:
+
+**Date Received by Chair/Director:** \TextField[width=10em, bordercolor={0 0 0}]{}
+
+**Additional Comments (attach separate sheets if necessary)**
+
+\TextField[width=17.2cm, height = 8cm, bordercolor={0 0 0}]{}
+
+**Date Forwarded to Associate Dean:**  \TextField[width=10em, bordercolor={0 0 0}]{}
+
+\vspace{5mm}
+
+\TextField[width=15em, height = 12mm, bordercolor={0 0 0}]{\textbf{Chair/Director's Signature:}} \hspace{5mm} **Date:** \TextField[width=10em, bordercolor={0 0 0}]{}
+

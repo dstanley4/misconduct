@@ -1,0 +1,22 @@
+Package: misconduct
+Type: Package
+Title: Create CSAHS Misconduct Forms
+Version: 0.1.0
+Authors@R: person("David", "Stanley", , "dstanley@uoguelph.ca", role = c("aut", "cre"))
+Description: Use information from Courselink to create CSAHS misconduct forms.
+    The program tries to use sensible defaults. For example, if you don't specify
+    the date for the interview or submission to Chair - today's date will be used.
+License: MIT License + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.2
+Imports:
+    rmarkdown,
+    knitr,
+    readr,
+    lubridate,
+    stringr,
+    tibble
+Date: 2022-04-06
+
+
